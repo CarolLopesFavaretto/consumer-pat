@@ -13,25 +13,26 @@ public class Extract {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    private int id;
 
-    @Column
-    int establishmentNameId;
+    @Column(nullable = false)
+    private int establishmentNameId;
 
-    @Column
-    String establishmentName;
+    @Column(nullable = false)
+    private String establishmentName;
 
-    @Column
-    String productDescription;
+    @Column(nullable = false)
+    private String productDescription;
 
-    @Column
-    Date dateBuy;
+    @Column(nullable = false)
+    private Date dateBuy;
 
-    @Column
-    int cardNumber;
+    @ManyToOne
+    @JoinColumn(name = "cardId", referencedColumnName = "id", nullable = false)
+    private Cards card;
 
-    @Column
-    double amount;
+    @Column(nullable = false)
+    private double amount;
 
     public Extract(int id, int establishmentNameId, String establishmentName, String productDescription, Date dateBuy, int cardNumber, double amount) {
         this.id = id;
@@ -39,14 +40,12 @@ public class Extract {
         this.establishmentName = establishmentName;
         this.productDescription = productDescription;
         this.dateBuy = dateBuy;
-        this.cardNumber = cardNumber;
         this.amount = amount;
     }
 
-    public Extract( String productDescription, Date dateBuy, int cardNumber, double amount) {
+    public Extract(String productDescription, Date dateBuy, int cardNumber, double amount) {
         this.productDescription = productDescription;
         this.dateBuy = dateBuy;
-        this.cardNumber = cardNumber;
         this.amount = amount;
     }
 
@@ -55,7 +54,6 @@ public class Extract {
         this.establishmentName = establishmentName;
         this.productDescription = productDescription;
         this.dateBuy = dateBuy;
-        this.cardNumber = cardNumber;
         this.amount = amount;
     }
 
