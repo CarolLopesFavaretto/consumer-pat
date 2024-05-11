@@ -37,12 +37,14 @@ public class ConsumerController {
     }
 
     /* Cadastrar novos clientes */
+    @ResponseBody
     @RequestMapping(value = "/createConsumer", method = RequestMethod.POST)
     public void createConsumer(@RequestBody Consumer consumer) {
         repository.save(consumer);
     }
 
     // Atualizar cliente, lembrando que não deve ser possível alterar o saldo do cartão
+    @ResponseBody
     @RequestMapping(value = "/updateConsumer", method = RequestMethod.POST)
     public void updateConsumer(@RequestBody Consumer consumer) {
         repository.save(consumer);
@@ -54,6 +56,7 @@ public class ConsumerController {
      * cardNumber: número do cartão
      * value: valor a ser creditado (adicionado ao saldo)
      */
+    @ResponseBody
     @RequestMapping(value = "/setcardbalance", method = RequestMethod.GET)
     public void setBalance(int cardNumber, double value) {
         Consumer consumer = null;
