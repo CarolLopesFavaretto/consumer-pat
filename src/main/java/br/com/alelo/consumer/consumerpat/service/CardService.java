@@ -2,11 +2,12 @@ package br.com.alelo.consumer.consumerpat.service;
 
 import br.com.alelo.consumer.consumerpat.dto.BalanceRequest;
 import br.com.alelo.consumer.consumerpat.dto.BuyRequest;
-import br.com.alelo.consumer.consumerpat.entity.Cards;
+import br.com.alelo.consumer.consumerpat.entity.Card;
 import br.com.alelo.consumer.consumerpat.entity.Extract;
 import br.com.alelo.consumer.consumerpat.respository.CardRepository;
 import br.com.alelo.consumer.consumerpat.respository.ExtractRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,17 +17,17 @@ import static br.com.alelo.consumer.consumerpat.entity.BalanceCard.ESTABLISHMENT
 import static br.com.alelo.consumer.consumerpat.entity.BalanceCard.PRODUCT_DESCRIPTION;
 
 @Service
-@RequiredArgsConstructor
 public class CardService {
 
-
+    @Autowired
     private ExtractRepository extractRepository;
+    @Autowired
     private CardRepository cardRepository;
 
     @Transactional
     public Double setBalance(BalanceRequest balance) {
 
-        Cards card = cardRepository.findCardByCardNumberAndCardType(balance.getCardNumber(), balance.getCardType())
+        Card card = cardRepository.findCardByCardNumberAndCardType(balance.getCardNumber(), balance.getCardType())
                 .orElseThrow(() -> new RuntimeException("Cartão não encontrado"));
 
         card.setBalance(card.getBalance() + balance.getValue());
@@ -47,7 +48,7 @@ public class CardService {
     @Transactional
     public void buy(BuyRequest buy) {
 
-        Cards card = cardRepository.findCardByCardNumberAndCardType(buy.getCardNumber(), buy.getEstablishmentType().type)
+        Card card = cardRepository.findCardByCardNumberAndCardType(buy.getCardNumber(), buy.getEstablishmentType().type)
                 .orElseThrow(() -> new RuntimeException("Cartão não encontrado"));
 
         buy.setValue(buy.getEstablishmentType().applyRule(buy.getValue()));

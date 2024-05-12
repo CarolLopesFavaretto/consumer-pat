@@ -33,7 +33,7 @@ public class Extract {
 
     @ManyToOne
     @JoinColumn(name = "cardId", referencedColumnName = "id", nullable = false)
-    private Cards card;
+    private Card card;
 
     @Column(nullable = false)
     private double amount;

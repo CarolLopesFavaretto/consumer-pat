@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Cards {
+public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
